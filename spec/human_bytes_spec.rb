@@ -22,6 +22,9 @@ describe HumanBytes do
     it "should define instance method #human_bytes" do
       expect(subject.instance_methods).to include(:human_bytes)
     end
+    it "should also define a module method name 'human_bytes'" do
+      expect(subject).to respond_to(:human_bytes)
+    end
   end
 
 end
