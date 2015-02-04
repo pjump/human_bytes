@@ -1,46 +1,68 @@
 require "human_bytes/version"
+require 'flt'
 
 module HumanBytes
-  PREFIXES =  [
+  UNIT_SETS =  [
     {
       B: 1,
-      Ki: 2**10,
-      Mi: 2**20,
-      Gi: 2**30,
-      Ti: 2**40,
-      Pi: 2**50,
-      Ei: 2**60,
-      Zi: 2**70,
-      Yi: 2**80
+      KiB: 2**10,
+      MiB: 2**20,
+      GiB: 2**30,
+      TiB: 2**40,
+      PiB: 2**50,
+      EiB: 2**60,
+      ZiB: 2**70,
+      YiB: 2**80
     },
     {
       B: 1,
-      K: 10**3,
-      M: 10**6,
-      G: 10**9,
-      T: 10**12,
-      P: 10**15,
-      E: 10**18,
-      Z: 10**21,
-      Y: 10**24,
+      KB: 10**3,
+      MB: 10**6,
+      GB: 10**9,
+      TB: 10**12,
+      PB: 10**15,
+      EB: 10**18,
+      ZB: 10**21,
+      YB: 10**24,
     }
   ]
   B = 1
-  PREFIXES.each do |prefix_set|
+  UNIT_SETS.each do |prefix_set|
     prefix_set.each_pair do |prefix,value|
       self.const_set(prefix,value) unless prefix == :B
     end
   end
 
+  ## 
+  # places (Integer): number of places after the decimal point
+  # i (Boolean): use IT prefixes based on powers of 2 rather than 10
+
+  DEFAULTS = { places: 2, i: true }
   def human_bytes(byte_size, opts={})
+    opts = DEFAULTS.merge(opts)
+    places = opts[:places]
+    i = opts[:i]
+
+    unit_sizes = UNIT_SETS[ i ? 0 : 1]
+
+    last_unit = :B
+    unit_sizes.each_pair do |unit,unit_size|
+      break if byte_size < unit_size
+      last_unit = unit
+    end
+    last_unit_size = unit_sizes[last_unit]
+
+    qty = (Flt::DecNum(byte_size)/(last_unit_size)).round(places: places)
+    "#{qty} #{last_unit}"
   end
   module_function :human_bytes
 
   def self.monkey_patch!(klass)
     klass.class_eval %Q{
       def human_bytes(options)
-        #{self}.human_bytes(self, options)
+    #{self}.human_bytes(self, options)
       end
     }
   end
+
 end
