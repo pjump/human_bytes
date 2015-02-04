@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
+
+require 'human_bytes'
+
+decimal = ARGV.delete('-d')
+places = ARGV[0] ? Integer(ARGV[0]) : nil
+
+STDIN.each do |num_str|
+  puts HumanBytes.human_bytes(Integer(num_str), i: !decimal, places: (places || 2) )
+end
