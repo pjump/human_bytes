@@ -31,4 +31,8 @@ module HumanBytes
       self.const_set(prefix,value) unless prefix == :B
     end
   end
+
+  def human_bytes(byte_size, opts={})
+  end
+
 end
