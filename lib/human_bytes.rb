@@ -35,4 +35,11 @@ module HumanBytes
   def human_bytes(byte_size, opts={})
   end
   module_function :human_bytes
+
+  def self.monkey_patch!(klass)
+    klass.class_eval %Q{
+      def human_bytes
+      end
+    }
+  end
 end
