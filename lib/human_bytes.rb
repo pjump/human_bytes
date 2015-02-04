@@ -34,5 +34,5 @@ module HumanBytes
 
   def human_bytes(byte_size, opts={})
   end
-
+  module_function :human_bytes
 end
