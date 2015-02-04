@@ -30,6 +30,13 @@ describe HumanBytes do
                                                      from(false).
                                                      to(true)
     end
+    specify "klass#human_bytes should call HumanBytes.human_bytes with the first argument set to self" do
+      subject.monkey_patch!(klass)
+      instance = klass.new
+      options = {}
+      expect(subject).to receive(:human_bytes).with(instance, options)
+      instance.human_bytes(options)
+    end
   end
 
   describe "#human_bytes" do
