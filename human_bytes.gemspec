@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["pskocik@gmail.com"]
 
   spec.summary       = %q{Convert bytesizes into a human-readable format}
-  spec.description   = %q{Either uses decimal byte prefixes or prefixes based on powers of 2 (Ki, Mi, etc.).}
+  spec.description   =  spec.summary + "\n\n" + %q{Either uses decimal byte prefixes or prefixes based on powers of 2 (Ki, Mi, etc.).}
   spec.homepage      = "https://github.com/pjump/human_bytes"
   spec.license       = "MIT"
 
