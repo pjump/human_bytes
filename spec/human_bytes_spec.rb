@@ -16,8 +16,12 @@ describe HumanBytes do
         expect(subject.const_defined?(prefix)).to eq(true)
       end
     end
-   
-    
+  end
+
+  describe "#human_bytes" do
+    it "should define instance method #human_bytes" do
+      expect(subject.instance_methods).to include(:human_bytes)
+    end
   end
 
 end
