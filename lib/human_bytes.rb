@@ -38,7 +38,8 @@ module HumanBytes
 
   def self.monkey_patch!(klass)
     klass.class_eval %Q{
-      def human_bytes
+      def human_bytes(options)
+        #{self}.human_bytes(self, options)
       end
     }
   end
