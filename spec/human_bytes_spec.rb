@@ -18,11 +18,21 @@ describe HumanBytes do
     end
   end
 
-  describe "#human_bytes" do
-    it "should define a module function named 'human_bytes'" do
-      expect(subject).to respond_to(:human_bytes)
-      expect(subject.private_instance_methods).to include(:human_bytes)
+  it "should define a module function named 'human_bytes'" do
+    expect(subject).to respond_to(:human_bytes)
+    expect(subject.private_instance_methods(false)).to include(:human_bytes)
+  end
+  
+  context ".monkey_patch!(klass)" do
+    let(:klass) { Class.new }
+    it "should add #human_bytes into klass" do
+      expect{subject.monkey_patch!(klass)}.to change{ klass.new.respond_to?(:human_bytes) }.
+                                                     from(false).
+                                                     to(true)
     end
+  end
+
+  describe "#human_bytes" do
   end
 
 end
