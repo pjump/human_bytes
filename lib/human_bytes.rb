@@ -57,12 +57,16 @@ module HumanBytes
   end
   module_function :human_bytes
 
+  module MethodVersion
+    def human_bytes(opts={})
+      HumanBytes.human_bytes(self, opts)
+    end
+  end
+
   def self.monkey_patch!(klass)
-    klass.class_eval %Q{
-      def human_bytes(options = HumanBytes::DEFAULTS)
-    #{self}.human_bytes(self, options)
-      end
-    }
+    klass.class_eval do
+      self.include HumanBytes::MethodVersion
+    end
   end
 
 end
