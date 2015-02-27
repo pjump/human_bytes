@@ -1,5 +1,6 @@
 require "human_bytes/version"
 require 'flt'
+require 'attach_function'
 
 module HumanBytes
   UNIT_SETS =  [
@@ -58,15 +59,7 @@ module HumanBytes
   module_function :human_bytes
 
   module MethodVersion
-    def human_bytes(opts={})
-      HumanBytes.human_bytes(self, opts)
-    end
+    extend AttachFunction
+    attach_function :human_bytes
   end
-
-  def self.monkey_patch!(klass)
-    klass.class_eval do
-      self.include HumanBytes::MethodVersion
-    end
-  end
-
 end

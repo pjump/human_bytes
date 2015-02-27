@@ -20,7 +20,6 @@ Arbitrary precision arithmetic is used so that even astronomical bytesizes are h
 ## Includable submodule
 
     Numeric.include(HumanBytes::MethodVersion)
-    #Same as: HumanBytes.monkey_patch!(Numeric)
     1024.human_bytes #=> '1.00 KiB'
     1050.human_bytes(places: 10) #=> '1.0253906250 KiB'
     1050.human_bytes(places: 3, i: false) #=> '1.050 KB'

@@ -23,15 +23,15 @@ describe HumanBytes do
     expect(subject.private_instance_methods(false)).to include(:human_bytes)
   end
   
-  context ".monkey_patch!(klass)" do
+  context "mixing ig" do
     let(:klass) { Class.new }
     it "should add #human_bytes into klass" do
-      expect{subject.monkey_patch!(klass)}.to change{ klass.new.respond_to?(:human_bytes) }.
+      expect{klass.include HumanBytes::MethodVersion}.to change{ klass.new.respond_to?(:human_bytes) }.
                                                      from(false).
                                                      to(true)
     end
     specify "klass#human_bytes should call HumanBytes.human_bytes with the first argument set to self" do
-      subject.monkey_patch!(klass)
+      klass.include HumanBytes::MethodVersion
       instance = klass.new
       options = {}
       expect(subject).to receive(:human_bytes).with(instance, options)
