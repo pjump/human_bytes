@@ -54,5 +54,8 @@ describe HumanBytes do
       expect(human_bytes(k, places: 2)).to match(/.\d{2} /)
       expect(human_bytes(k, places: 5)).to match(/.\d{5} /)
     end
+    it "should work with numbers with the decimal point too" do
+      expect(human_bytes(1.5, places: 2)).to eq("1.50 B")
+    end
   end
 end
