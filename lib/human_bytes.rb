@@ -53,7 +53,7 @@ module HumanBytes
     end
     last_unit_size = unit_sizes[last_unit]
 
-    qty = (Flt::DecNum(byte_size)/(last_unit_size)).round(places: places)
+    qty = (Flt::DecNum(byte_size.to_s)/(last_unit_size)).round(places: places)
     "#{qty} #{last_unit}"
   end
   module_function :human_bytes
